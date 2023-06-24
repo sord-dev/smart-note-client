@@ -36,6 +36,33 @@ img {
   height: auto;
 }
 
+button {
+  display: inline-block;
+  padding: 12px 24px;
+  font-size: 12px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: #ffffff;
+  background-color: #000000;
+  border: none;
+  border-radius: 0;
+  cursor: pointer;
+  transition: background-color 0.6s ease;
+  border-radius: 6px;
+}
+
+button:hover {
+  background-color: #ffffffe2;
+  color: #000000;
+}
+
+button:focus {
+  outline: none;
+  box-shadow: 0 0 4px #ffffff;
+}
+
 /* Add a background color and default text color */
 body {
   background-color: #fcfcfc;

@@ -15,9 +15,9 @@ export const AuthenticationForm = ({ type, submitForm }) => {
         const formValues = Object.fromEntries(formData.entries());
         const error = await submitForm(formValues);
 
-        console.log(error)
         if (error) {
             setError(error)
+            console.log(error)
         }
     };
 

@@ -4,7 +4,7 @@ import { AuthenticationForm } from '@/components';
 import { useAuth } from '@/contexts/AuthContext';
 
 function AuthPage() {
-    const { query } = useRouter();
+    const { query, push } = useRouter();
     const { login, register } = useAuth();
 
     const type = query?.type === 'register' ? 'register' : 'login';
@@ -20,8 +20,9 @@ function AuthPage() {
 
         if (error) {
             return error.error;
+        } else {
+            push('/')
         }
-
     };
 
     return <AuthenticationForm type={type} submitForm={handleSubmit} />;
