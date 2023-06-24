@@ -1,9 +1,9 @@
-import '../styles/globals.css'
+import { Layout, TabGeneratorComponent } from '@/components'
 
 export default function Home() {
     return (
-        <>
-            <h1>jeez</h1>
-        </>
+        <Layout>
+            <TabGeneratorComponent />
+        </Layout>
     )
 }

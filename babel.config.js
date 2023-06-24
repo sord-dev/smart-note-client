@@ -1,5 +1,13 @@
-// babel.config.js
-
 module.exports = {
-    presets: ["@babel/preset-react", ["@babel/preset-env", { targets: { node: 'current' } }]],
+    presets: [
+        "@babel/preset-react",
+        [
+            "@babel/preset-env",
+            {
+                targets: {
+                    browsers: "last 2 versions", // Specify the browsers you want to support
+                },
+            },
+        ],
+    ],
 };
