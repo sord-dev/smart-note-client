@@ -21,7 +21,6 @@ function AuthPage() {
         }
 
         if (error) {
-            console.log('picking up error, ', error)
             return error.error;
         } else {
             push('/')
