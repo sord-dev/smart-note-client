@@ -1,19 +1,27 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styles from './styles.module.css'
 
 const FormTypes = ['login', 'register'];
 
 export const AuthenticationForm = ({ type, submitForm }) => {
+    const [error, setError] = useState(null);
     if (!FormTypes.some((t) => t === type.toLowerCase())) return 'Provide Valid Form Type';
     const computedType = type === 'login' ? 'Login' : 'Register';
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         const form = event.target;
         const formData = new FormData(form);
         const formValues = Object.fromEntries(formData.entries());
-        submitForm(formValues);
+        const error = await submitForm(formValues);
+
+        console.log(error)
+        if (error) {
+            setError(error)
+        }
     };
+
+
 
     return (
         <form className={styles.form} onSubmit={handleSubmit} data-testid={`${computedType.toLowerCase()}-form`}>
@@ -21,6 +29,7 @@ export const AuthenticationForm = ({ type, submitForm }) => {
             {/* Display respective form fields based on type */}
             {type === 'login' && <LoginForm />}
             {type === 'register' && <RegisterForm />}
+            {error ? <p>{error}</p> : null}
             <button className={styles.button} role="button" type="submit">
                 {computedType}
             </button>

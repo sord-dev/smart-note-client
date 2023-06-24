@@ -1,15 +1,30 @@
-import { AuthenticationForm } from '@/components'
-import { useRouter } from 'next/router'
-import React from 'react'
+import React from 'react';
+import { useRouter } from 'next/router';
+import { AuthenticationForm } from '@/components';
+import { useAuth } from '@/contexts/AuthContext';
 
-// example url: domain-url/authenticate?type=[login || register] if null type === 'login'
 function AuthPage() {
-    const { query } = useRouter()
-    const type = query?.type ? query.type : 'login'
+    const { query } = useRouter();
+    const { login, register } = useAuth();
 
-    return (
-        <AuthenticationForm {...{ type }} />
-    )
+    const type = query?.type === 'register' ? 'register' : 'login';
+
+    const handleSubmit = async (credentials) => {
+        let error = null;
+
+        if (type === 'register') {
+            error = await register(credentials);
+        } else if (type === 'login') {
+            error = await login(credentials);
+        }
+
+        if (error) {
+            return error.error;
+        }
+
+    };
+
+    return <AuthenticationForm type={type} submitForm={handleSubmit} />;
 }
 
-export default AuthPage
+export default AuthPage;

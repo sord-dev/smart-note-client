@@ -1,3 +1,4 @@
+import React from 'react'
 import { Layout, TabGeneratorComponent } from '@/components'
 import { useTabs } from '@/contexts/TabContext'
 
