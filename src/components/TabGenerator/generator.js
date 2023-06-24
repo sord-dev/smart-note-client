@@ -1,4 +1,3 @@
-import React from 'react';
 import MarkdownPreview from "../MarkdownPreview";
 import NodeMap from "../NodeMap";
 
@@ -9,18 +8,9 @@ export class TabGenerator {
         return new NodeMap();
       case 'markdown':
         return new MarkdownPreview();
-      default:
-        return new ErrorTab(type);
-    }
-  }
-}
 
-class ErrorTab {
-  render() {
-    return (
-      <>
-        <h1 role='error-message'>Oops, somethings gone wrong.</h1>
-      </>
-    );
+      default:
+        return new NodeMap();
+    }
   }
 }

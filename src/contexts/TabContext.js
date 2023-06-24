@@ -2,11 +2,11 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 
 const TabContext = createContext();
 
-
 export const TabProvider = ({ children }) => {
     const [activeTab, setActiveTab] = useState({ type: 'map', data: '' });
 
     const openMarkdown = (file) => {
+        if (!file.content || !file.title) return openMarkdown({ title: 'Error', content: '# Oops, file not found or is invalid.' });
         if (activeTab.data == file?.content) return;
         setActiveTab({ type: 'markdown', data: { ...file } })
     }

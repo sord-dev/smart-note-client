@@ -17,7 +17,7 @@ export function Layout({ children }) {
 
             <aside className={styles.sidebar}>
                 <h3>Files</h3>
-                <div onClick={() => openMarkdown({ content: '# Wow' })}>test file</div>
+                <div onClick={() => openMarkdown({ title: 'test file', content: '# Wow' })}>test file</div>
             </aside>
 
             <main className={styles.main}>{children}</main>

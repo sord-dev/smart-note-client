@@ -1,26 +1,30 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react';
 import { TabGeneratorComponent } from '.';
+import { TabProvider } from '../contexts/TabContext';
 
 describe('TabGeneratorComponent', () => {
-    it('renders the NodeMap tab', () => {
-        render(<TabGeneratorComponent tabType="map" />);
+    test('should render the activeTab type correctly', () => {
+        render(
+            <TabProvider>
+                <TabGeneratorComponent />
+            </TabProvider>
+        );
 
-        // Assert that the NodeMap component is rendered
-        expect(screen.getByTestId('node-map')).toBeInTheDocument();
+        const activeTabElement = screen.getByText('map');
+
+        expect(activeTabElement).toBeInTheDocument();
     });
 
-    it('renders the MarkdownPreview tab', () => {
-        render(<TabGeneratorComponent tabType="markdown" data="# Title" />);
+    test('should render error message when activeTab data is invalid', () => {
+        render(
+            <TabProvider>
+                <TabGeneratorComponent />
+            </TabProvider>
+        );
 
-        // Assert that the MarkdownPreview component is rendered with the provided data
-        expect(screen.getByTestId('markdown-preview')).toBeInTheDocument();
-    });
+        const errorMessage = screen.getByText('Invalid tab data');
 
-    it('renders the ErrorTab for unknown tab type', () => {
-        render(<TabGeneratorComponent tabType="unknown" />);
-
-        // Assert that the ErrorTab component is rendered
-        expect(screen.getByRole('error-message')).toBeInTheDocument();
+        expect(errorMessage).toBeInTheDocument();
     });
 });
