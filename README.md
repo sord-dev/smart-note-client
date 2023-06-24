@@ -70,6 +70,7 @@ This is a Next.js front-end application for managing and displaying notes. It co
 ```bash
 - src/
   - components/    # Reusable UI components
+  - contexts/      # Global contexts for the application
   - pages/         # Pages or routes of the application
   - utils/         # Utility functions and helpers
   - api/           # API services for making requests to the backend server
@@ -84,17 +85,14 @@ Make sure to update the paths in the README and the code accordingly.
 - React - A JavaScript library for building user interfaces.
 - Axios - A promise-based HTTP client for making API requests.
 - SWR - A React hook library for data fetching and caching.
-- React Query - A library for managing and caching remote data.
-- React Toastify - A library for displaying toast notifications.
-- Tailwind CSS - A utility-first CSS framework for styling the application.
 
 ## Todo List
 
 - [x] Setup project structure
 - [x] Install required dependencies
 - [ ] Create authentication components
-  - [ ] Login form
-  - [ ] Registration form
+  - [x] Login form
+  - [x] Registration form
   - [ ] Reset password form
 - [ ] Implement authentication logic
   - [ ] User registration
@@ -111,11 +109,8 @@ Make sure to update the paths in the README and the code accordingly.
   - [ ] Display folder structure
   - [ ] Handle folder and file selection
 - [ ] Add markdown rendering
-  - [ ] Render note content in markdown format
+  - [x] Render note content in markdown format
   - [ ] Provide editing capabilities
-- [ ] Implement real-time updates
-  - [ ] Use WebSocket or event-based communication
-  - [ ] Update notes and folder structure in real-time
 - [ ] Styling and UI enhancements
   - [ ] Apply consistent styles across components
   - [ ] Responsive design for different devices
