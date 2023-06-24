@@ -1,34 +1,133 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Next.js Front-End Application
+
+This is a Next.js front-end application for managing and displaying notes. It consumes a backend Express server for data storage and retrieval.
+
+## Requirements
+
+- Node.js and npm should be installed on your machine.
 
 ## Getting Started
 
-First, run the development server:
+1. Clone the repository: `git clone <repository-url>`
+2. Navigate to the project directory: `cd <project-directory>`
+
+### Installation
+
+1. Install the dependencies: `npm install`
+
+### Configuration
+
+1. Create a `.env.local` file in the root directory.
+2. Add the following environment variables to the `.env.local` file:
+   - `NEXT_PUBLIC_API_URL` - The URL of the backend Express server.
+
+### Development
+
+1. Run the application in development mode: `npm run dev`
+2. Open your browser and visit `http://localhost:3000` to view the application.
+
+### Deployment
+
+1. Build the application: `npm run build`
+2. Deploy the application to a hosting platform of your choice.
+
+## Features
+
+- Authentication:
+  - Register a new user.
+  - Log in to an existing account.
+  - Log out from the account.
+
+- Dashboard:
+  - View a list of notes.
+  - Create a new note.
+  - Edit an existing note.
+  - Delete a note.
+  - Filter notes by category/folder.
+
+- Note Visualization:
+  - Display notes in a visually appealing manner.
+  - Support rich text formatting.
+
+- Error Handling:
+  - Display informative error messages for user actions.
+
+- Wireframing:
+  - Design and implement wireframes for the application UI using a tool of your choice (e.g., Figma, Sketch, Adobe XD).
+  - Ensure the wireframes align with the desired functionality and user experience.
+
+## Configuration (Backend Express Server)
+
+1. Create a `.env` file in the root directory of the backend server.
+2. Add the following environment variables to the `.env` file:
+   - `DB_URI` - The URI of the MongoDB database.
+   - `TEST_DB_URI` - The URI of the test MongoDB database.
+   - `JWT_SECRET` - A secret key for JWT token generation.
+   - Other necessary configuration variables for the backend server.
+
+## Folder Structure
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+- src/
+  - components/    # Reusable UI components
+  - pages/         # Pages or routes of the application
+  - utils/         # Utility functions and helpers
+  - api/           # API services for making requests to the backend server
+  - styles/        # Global styles and CSS files
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Make sure to update the paths in the README and the code accordingly.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## Technologies Used
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- Next.js - A React framework for building server-rendered applications.
+- React - A JavaScript library for building user interfaces.
+- Axios - A promise-based HTTP client for making API requests.
+- SWR - A React hook library for data fetching and caching.
+- React Query - A library for managing and caching remote data.
+- React Toastify - A library for displaying toast notifications.
+- Tailwind CSS - A utility-first CSS framework for styling the application.
 
-## Learn More
+## Todo List
 
-To learn more about Next.js, take a look at the following resources:
+- [x] Setup project structure
+- [x] Install required dependencies
+- [ ] Create authentication components
+  - [ ] Login form
+  - [ ] Registration form
+  - [ ] Reset password form
+- [ ] Implement authentication logic
+  - [ ] User registration
+  - [ ] User login
+  - [ ] Password reset functionality
+- [ ] Create dashboard page
+  - [ ] Display user's notes
+  - [ ] Add new note functionality
+  - [ ] Edit and delete notes
+- [ ] Implement note management
+  - [ ] API integration for CRUD operations
+  - [ ] Handle note state and updates
+- [ ] Create folder and file navigation
+  - [ ] Display folder structure
+  - [ ] Handle folder and file selection
+- [ ] Add markdown rendering
+  - [ ] Render note content in markdown format
+  - [ ] Provide editing capabilities
+- [ ] Implement real-time updates
+  - [ ] Use WebSocket or event-based communication
+  - [ ] Update notes and folder structure in real-time
+- [ ] Styling and UI enhancements
+  - [ ] Apply consistent styles across components
+  - [ ] Responsive design for different devices
+- [ ] Testing
+  - [ ] Unit tests for components and utilities
+  - [ ] Integration tests for API calls
+- [ ] Deployment
+  - [ ] Prepare for production deployment
+  - [ ] Deploy to hosting platform
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Feel free to modify and expand this todo list based on the specific requirements and tasks for your project.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Contributing
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Contributions are welcome! If you have any ideas, enhancements, or bug fixes, please submit a pull request.
