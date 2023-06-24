@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactMarkdown from 'react-markdown/react-markdown.min';
+import ReactMarkdown from 'react-markdown';
 
 export const FileDisplay = ({ file }) => {
     if (!file) return <h1>No file provided.</h1>;
