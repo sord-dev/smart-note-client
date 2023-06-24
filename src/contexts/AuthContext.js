@@ -10,6 +10,7 @@ export const AuthProvider = ({ children }) => {
 
     const login = async (credentials) => {
         if (!credentials.username || !credentials.password) return;
+
         try {
             const response = await axios.post(BASE_URL + '/auth/login', credentials, {
                 withCredentials: true, // Enable sending cookies with the request
@@ -17,9 +18,9 @@ export const AuthProvider = ({ children }) => {
 
             const userData = response.data;
             setUser(userData);
-            console.log(userData)
         } catch (error) {
             console.error('Login failed:', error);
+            return error.response?.data;
 
         }
     };

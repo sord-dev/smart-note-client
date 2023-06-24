@@ -1,7 +1,7 @@
 /* AuthenticationForm.module.css */
 .form {
   max-width: 400px;
-  margin: 0 auto;
+  margin: 24px auto;
   padding: 20px;
   background-color: #fff;
   border-radius: 4px;
@@ -12,6 +12,7 @@
   font-size: 24px;
   font-weight: 600;
   margin-bottom: 20px;
+  text-align: center;
 }
 
 .fields {
@@ -48,9 +49,16 @@
   border-radius: 4px;
   cursor: pointer;
   font-weight: 600;
+  width: 100%;
   transition: background-color 0.3s ease;
+  margin: 12px 0;
 }
 
 .button:hover {
   background-color: #3182ce;
+}
+
+.error {
+  color: red;
+  text-align: center;
 }

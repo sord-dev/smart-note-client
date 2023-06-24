@@ -9,8 +9,10 @@ function AuthPage() {
 
     const type = query?.type === 'register' ? 'register' : 'login';
 
-    const handleSubmit = async (credentials) => {
-        let error = null;
+    const submitForm = async (credentials) => {
+        if (!credentials) return;
+
+        let error = false;
 
         if (type === 'register') {
             error = await register(credentials);
@@ -19,13 +21,14 @@ function AuthPage() {
         }
 
         if (error) {
+            console.log('picking up error, ', error)
             return error.error;
         } else {
             push('/')
         }
     };
 
-    return <AuthenticationForm type={type} submitForm={handleSubmit} />;
+    return <AuthenticationForm {...{ type, submitForm }} />;
 }
 
 export default AuthPage;

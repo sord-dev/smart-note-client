@@ -21,15 +21,13 @@ export const AuthenticationForm = ({ type, submitForm }) => {
         }
     };
 
-
-
     return (
         <form className={styles.form} onSubmit={handleSubmit} data-testid={`${computedType.toLowerCase()}-form`}>
             <h2 className={styles.title}>{computedType}</h2>
             {/* Display respective form fields based on type */}
             {type === 'login' && <LoginForm />}
             {type === 'register' && <RegisterForm />}
-            {error ? <p>{error}</p> : null}
+            {error ? <p className={styles.error}>{error}</p> : null}
             <button className={styles.button} role="button" type="submit">
                 {computedType}
             </button>
