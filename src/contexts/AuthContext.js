@@ -2,7 +2,6 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 
 const AuthContext = createContext();
-
 const BASE_URL = 'http://localhost:3001';
 
 export const AuthProvider = ({ children }) => {
@@ -21,12 +20,10 @@ export const AuthProvider = ({ children }) => {
         } catch (error) {
             console.error('Login failed:', error);
             return error.response?.data;
-
         }
     };
 
     const register = async (credentials) => {
-        console.log(credentials)
         console.log(credentials.password != credentials.conf_pasword)
         if (!credentials.username || !credentials.password) return;
         if (credentials.password != credentials.conf_password) return;

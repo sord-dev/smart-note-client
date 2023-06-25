@@ -1,0 +1,61 @@
+/* styles.module.css */
+
+.markdown-content {
+  font-family: "Inter", sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #333333;
+  font-size: 1.1em;
+}
+
+.markdown-content h1 {
+  font-size: 24px;
+  margin-bottom: 16px;
+  font-size: 2em;
+}
+
+.markdown-content h2 {
+  font-size: 20px;
+  margin-bottom: 12px;
+}
+
+.markdown-content p {
+  margin-bottom: 8px;
+}
+
+.markdown-content a {
+  color: #0066cc;
+}
+
+.markdown-content ul {
+  list-style-type: disc;
+  margin-bottom: 12px;
+  margin-left: 24px;
+}
+
+.markdown-content ol {
+  list-style-type: decimal;
+  margin-bottom: 12px;
+  margin-left: 24px;
+}
+
+.markdown-content li {
+  margin-bottom: 4px;
+}
+
+.markdown-content pre {
+  background-color: #f1f1f1;
+  padding: 8px;
+  border-radius: 4px;
+  margin-bottom: 12px;
+  overflow-x: auto;
+}
+
+.markdown-content code {
+  font-family: "Courier New", monospace;
+  background-color: #f1f1f1;
+  padding: 2px 4px;
+  border-radius: 4px;
+}
+
+/* Add more styles as per your preference */

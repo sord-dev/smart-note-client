@@ -16,14 +16,14 @@ function AuthPage() {
 
         if (type === 'register') {
             error = await register(credentials);
-        } else if (type === 'login') {
+        } else {
             error = await login(credentials);
         }
 
         if (error) {
-            return error.error;
+            return error.message;
         } else {
-            push('/')
+            setTimeout(() => push('/'), 800); // Timeout because cookie needs time to set
         }
     };
 

@@ -1,9 +1,11 @@
 import React from 'react'
 import styles from './styles.module.css'
 import { useTabs } from '@/contexts/TabContext'
+import { useFiles } from '@/contexts/FileContext';
 
 export function Layout({ children }) {
     const { tabControls: { openMap, openMarkdown } } = useTabs();
+    const { files } = useFiles();
 
     return (
         <div className={styles.layout}>
@@ -17,7 +19,12 @@ export function Layout({ children }) {
 
             <aside className={styles.sidebar}>
                 <h3>Files</h3>
-                <div onClick={() => openMarkdown({ title: 'test file', content: '# Wow' })}>test file</div>
+                <div onClick={() => openMarkdown({ title: 'Test File', content: '# Wow' })}>Test File</div>
+                <div>
+                    {files ? files.map(f => {
+                        return <p key={f.id} onClick={() => openMarkdown(f)}>{f.title}</p>
+                    }) : null}
+                </div>
             </aside>
 
             <main className={styles.main}>{children}</main>

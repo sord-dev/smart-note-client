@@ -1,47 +1,30 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react'
+
 import { Layout, TabGeneratorComponent } from '@/components'
+
 import { useTabs } from '@/contexts/TabContext'
-import { useAuth } from '@/contexts/AuthContext';
-import { useRouter } from 'next/router';
+import { useFiles } from '@/contexts/FileContext'
 
-import axios from 'axios'
-import useSWR from 'swr'
-
-const fetcher = async (url) => {
-    try {
-        const response = await axios.get(url, {
-            withCredentials: true
-        });
-
-        return response.data;
-    } catch (error) {
-        throw error.response.data;
-    }
-};
-
+import useFetchNotes from '@/hooks/useFetchNotes'
+import { useRouter } from 'next/router'
 
 const Home = () => {
     const { activeTab } = useTabs();
-    const { user } = useAuth();
+    const { fileControls } = useFiles();
     const router = useRouter();
 
-    const { data: fetchedNotes, error } = useSWR('http://localhost:3001/notes', fetcher, {
-        initialData: [], // Provide initial data from props if available
-    });
+    const { error, isLoading } = useFetchNotes('http://localhost:3001/notes', fileControls);
 
-    useEffect(() => {
-        if (!user) router?.push('/authenticate');
-        console.log(fetchedNotes);
-    }, [fetchedNotes, user, router]);
 
-    if (error) {
-        // Handle error state
-        return <div>Error: {error.message}</div>;
-    }
-
-    if (!fetchedNotes) {
+    if (isLoading) {
         // Handle loading state
         return <div>Loading...</div>;
+    }
+
+    if (error) {
+        console.log('error, you\'ve been redirected: ', error)
+        router.push('/authenticate')
     }
 
     // Render the notes data
