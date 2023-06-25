@@ -58,4 +58,8 @@
   border-radius: 4px;
 }
 
-/* Add more styles as per your preference */
+.markdown-controls {
+  display: flex;
+  position: absolute;
+  bottom: 20px;
+}

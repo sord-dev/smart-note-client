@@ -9,6 +9,10 @@ export const FileDisplay = ({ file }) => {
     return (
         <div data-testid='markdown-preview'>
             <ReactMarkdown className={styles['markdown-content']}>{file?.content}</ReactMarkdown>
+
+            <div className={styles['markdown-controls']}>
+                markdown controls
+            </div>
         </div>
     )
 }
