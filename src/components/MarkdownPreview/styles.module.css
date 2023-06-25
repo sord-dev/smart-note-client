@@ -57,9 +57,3 @@
   padding: 2px 4px;
   border-radius: 4px;
 }
-
-.markdown-controls {
-  display: flex;
-  position: absolute;
-  bottom: 20px;
-}

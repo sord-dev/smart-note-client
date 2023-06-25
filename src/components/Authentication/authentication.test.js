@@ -51,12 +51,11 @@ test('submits form with correct data', () => {
 
         // Submit the form
         fireEvent.click(submitButton);
+    });
 
-        // Assert that form submission logic is triggered
-        expect(submitForm).toHaveBeenCalledWith({
-            username: 'testuser',
-            password: 'testpassword',
-        });
-    })
+    // Assert that form submission logic is triggered
+    expect(submitForm).toHaveBeenCalledWith({
+        username: 'testuser',
+        password: 'testpassword',
+    });
 });
-

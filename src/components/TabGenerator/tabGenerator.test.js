@@ -2,6 +2,7 @@ import React from 'react'
 import { render, screen } from '@testing-library/react';
 import { TabGeneratorComponent } from '.';
 import { TabProvider } from '../../contexts/TabContext';
+import { FileProvider } from '../../contexts/FileContext';
 
 describe('TabGeneratorComponent', () => {
     test('should render the activeTab type correctly', () => {
@@ -18,9 +19,11 @@ describe('TabGeneratorComponent', () => {
 
     test('should render node map when activeTab data is invalid', () => {
         render(
-            <TabProvider>
-                <TabGeneratorComponent />
-            </TabProvider>
+            <FileProvider>
+                <TabProvider>
+                    <TabGeneratorComponent />
+                </TabProvider>
+            </FileProvider>
         );
 
         const activeTabElement = screen.getByTestId('node-map');
