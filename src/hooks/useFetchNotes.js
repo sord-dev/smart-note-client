@@ -23,7 +23,8 @@ const useFetchNotes = (url, fileControls) => {
         if (fetchedNotes) {
             fileControls?.loadFiles(fetchedNotes);
         }
-    }, [fetchedNotes, fileControls]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [fetchedNotes]);
 
     return {
         notes: fetchedNotes,

@@ -7,8 +7,8 @@ import { useFiles } from '@/contexts/FileContext';
 import { EditNoteButton, FileList } from './subcomponents';
 
 export function Layout({ children }) {
-    const { tabControls: { openMap, openMarkdown } } = useTabs();
-    const { files } = useFiles();
+    const { tabControls: { openMap, openMarkdown }, fileStateControls } = useTabs();
+    const { files, fileControls } = useFiles();
     const { activeTab } = useTabs();
 
     return (
@@ -17,16 +17,16 @@ export function Layout({ children }) {
                 <h1>SmartNote</h1>
 
                 <nav className={styles.layoutNav}>
-                    <button onClick={() => openMap()}>Map</button>
+                    <button className='btn' onClick={() => openMap()}>Map</button>
                 </nav>
             </header>
 
             <aside className={styles.sidebar}>
                 <div className={styles.sidebarItems}>
-                    <FileList {...{ files, activeTab, openFile: openMarkdown }} />
+                    <FileList {...{ files, activeTab, openFile: openMarkdown, createFile: fileControls?.createFile }} />
                 </div>
 
-                <EditNoteButton activeTab={activeTab} />
+                <EditNoteButton activeTab={activeTab} onClick={fileStateControls?.setEditFile} />
             </aside>
 
             <main className={styles.main}>{children}</main>

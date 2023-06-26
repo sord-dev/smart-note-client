@@ -22,4 +22,14 @@ const renderNode = (node, ctx, globalScale) => {
     ctx.fillText(label, node.x, textY); // Display label below the circle
 };
 
-export { renderNode, nodeClickInjectHandler }
+const DefaultGraphData = {
+    nodes: [
+        { title: 'Node 1', content: '# Test 1' },
+        { title: 'Node 2', content: '# Test 2' },
+        { title: 'Node 3', content: '# Test 3' },
+        // Add more nodes as needed
+    ],
+    links: [],
+};
+
+export { renderNode, nodeClickInjectHandler, DefaultGraphData }

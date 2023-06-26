@@ -95,11 +95,12 @@ Make sure to update the paths in the README and the code accordingly.
   - [x] Registration form
   - [ ] Reset password form
 - [ ] Implement authentication logic
-  - [ ] User registration
-  - [ ] User login
+  - [x] User registration
+  - [x] User login
   - [ ] Password reset functionality
 - [ ] Create dashboard page
-  - [ ] Display user's notes
+  - [x] Display user's notes in layout
+  - [x] Display user's notes on map
   - [ ] Add new note functionality
   - [ ] Edit and delete notes
 - [ ] Implement note management
@@ -108,11 +109,11 @@ Make sure to update the paths in the README and the code accordingly.
 - [ ] Create folder and file navigation
   - [ ] Display folder structure
   - [ ] Handle folder and file selection
-- [ ] Add markdown rendering
+- [x] Add markdown rendering
   - [x] Render note content in markdown format
-  - [ ] Provide editing capabilities
+  - [x] Provide editing capabilities
 - [ ] Styling and UI enhancements
-  - [ ] Apply consistent styles across components
+  - [x] Apply consistent styles across components
   - [ ] Responsive design for different devices
 - [ ] Testing
   - [ ] Unit tests for components and utilities

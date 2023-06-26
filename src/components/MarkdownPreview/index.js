@@ -1,18 +1,55 @@
 import React from 'react';
+
 import ReactMarkdown from 'react-markdown';
+import dynamic from 'next/dynamic';
+import { useTabs } from '@/contexts/TabContext';
 
-import styles from './styles.module.css'
+import useFileDisplay from '@/hooks/useFileDisplay';
 
+import 'easymde/dist/easymde.min.css'
+import styles from './styles.module.css';
+import { useFiles } from '@/contexts/FileContext';
+const SimpleMDE = dynamic(() => import("react-simplemde-editor"), { ssr: false }); // don't load NodeGraph component when we're server side 
 
 export const FileDisplay = ({ file }) => {
+    const { activeTab, fileStateControls } = useTabs();
+    const { fileControls } = useFiles();
+
+    const {
+        content,
+        newContent,
+        fileEdited,
+        handleDoubleClick,
+        handleEditorChange,
+        handleSave
+    } = useFileDisplay(file, activeTab, fileStateControls);
+
     if (!file) return <h1>No file provided.</h1>;
 
     return (
-        <div data-testid='markdown-preview'>
-            <ReactMarkdown className={styles['markdown-content']}>{file?.content}</ReactMarkdown>
+        <div data-testid="markdown-preview" onDoubleClick={handleDoubleClick}>
+            {activeTab.editingFile ? (
+                <SimpleMDE
+                    className={styles['markdown-editor']}
+                    value={newContent.value}
+                    onChange={handleEditorChange}
+                />
+            ) : (
+                <ReactMarkdown className={styles['markdown-content']}>
+                    {fileEdited.value ? newContent.value : content.value}
+                </ReactMarkdown>
+            )}
+            {activeTab.editingFile && (
+                <button className={styles['save-button']} onClick={handleSave}>
+                    Save
+                </button>
+            )}
         </div>
-    )
-}
+    );
+};
+
+
+
 export default class MarkdownPreview {
     // Markdown tab implementation
     render({ data }) {
