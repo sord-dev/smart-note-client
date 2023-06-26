@@ -3,7 +3,7 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 const TabContext = createContext();
 
 export const TabProvider = ({ children }) => {
-    const [activeTab, setActiveTab] = useState({ type: 'map', data: '', editingFile: false });
+    const [activeTab, setActiveTab] = useState({ type: 'map', data: '' });
     const [processList, setProcessList] = useState([]);
 
     const addProcess = (proc) => {
@@ -22,8 +22,8 @@ export const TabProvider = ({ children }) => {
 
     const setEditFile = () => {
         if (activeTab.type !== 'markdown') return;
-        const newEditState = !activeTab.editingFile;
-        setActiveTab(prev => ({ ...prev, editingFile: newEditState }))
+        const newEditState = !activeTab.data.editingFile;
+        setActiveTab(prev => ({ ...prev, data: { ...prev.data, editingFile: newEditState } }))
     }
 
     const openMap = () => {

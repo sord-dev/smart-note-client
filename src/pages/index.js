@@ -6,16 +6,20 @@ import { Layout, TabGeneratorComponent } from '@/components'
 import { useTabs } from '@/contexts/TabContext'
 import { useFiles } from '@/contexts/FileContext'
 
-import useFetchNotes from '@/hooks/useFetchNotes'
 import { useRouter } from 'next/router'
+import Head from 'next/head'
+
+import useFetchNotes from '@/hooks/useFetchNotes'
+import { useSEOConfig } from '@/contexts/SEOContext'
 
 const Home = () => {
     const { activeTab } = useTabs();
     const { fileControls } = useFiles();
     const router = useRouter();
 
-    const { error, isLoading } = useFetchNotes('http://localhost:3001/notes', fileControls);
+    const { SEOConfig } = useSEOConfig()
 
+    const { error, isLoading } = useFetchNotes('http://localhost:3001/notes', fileControls);
 
     if (isLoading) {
         // Handle loading state
@@ -29,9 +33,14 @@ const Home = () => {
 
     // Render the notes data
     return (
-        <Layout>
-            <TabGeneratorComponent tabType={activeTab.type} data={activeTab.data} />
-        </Layout>
+        <>
+            <Head>
+                <title>{SEOConfig.title}</title>
+            </Head>
+            <Layout>
+                <TabGeneratorComponent tabType={activeTab.type} data={activeTab.data} />
+            </Layout>
+        </>
     );
 };
 

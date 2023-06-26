@@ -4,7 +4,7 @@ import styles from './styles.module.css'
 import { useTabs } from '@/contexts/TabContext'
 import { useFiles } from '@/contexts/FileContext';
 
-import { EditNoteButton, FileList, FileSearch } from './subcomponents';
+import { NoteControls, FileList, FileSearch } from './subcomponents';
 
 export function Layout({ children }) {
     const { tabControls: { openMap, openMarkdown }, fileStateControls } = useTabs();
@@ -28,14 +28,12 @@ export function Layout({ children }) {
                     <FileSearch {...{ files, activeTab, openFile: openMarkdown }} />
                 </div>
 
-                <EditNoteButton activeTab={activeTab} onClick={fileStateControls?.setEditFile} />
+                <NoteControls activeTab={activeTab} setEditFile={fileStateControls?.setEditFile} deleteFile={async () => await fileControls?.deleteFile(activeTab.data.id)} />
             </aside>
 
             <main className={styles.main}>{children}</main>
 
-            <footer className={styles.footer}>
-                <p>Made with ❤️ by <a href="http://github.com/sord-dev" target="_blank" rel="noopener noreferrer">stef</a></p>
-            </footer>
+
         </div>
     )
 }

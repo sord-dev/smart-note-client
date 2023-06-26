@@ -2,18 +2,16 @@ import React from 'react';
 
 import ReactMarkdown from 'react-markdown';
 import dynamic from 'next/dynamic';
-import { useTabs } from '@/contexts/TabContext';
+import { useTabs } from '../../contexts/TabContext';
 
-import useFileDisplay from '@/hooks/useFileDisplay';
+import useFileDisplay from '../../hooks/useFileDisplay';
 
 import 'easymde/dist/easymde.min.css'
 import styles from './styles.module.css';
-import { useFiles } from '@/contexts/FileContext';
 const SimpleMDE = dynamic(() => import("react-simplemde-editor"), { ssr: false }); // don't load NodeGraph component when we're server side 
 
 export const FileDisplay = ({ file }) => {
     const { activeTab, fileStateControls } = useTabs();
-    const { fileControls } = useFiles();
 
     const {
         content,
@@ -28,7 +26,7 @@ export const FileDisplay = ({ file }) => {
 
     return (
         <div data-testid="markdown-preview" onDoubleClick={handleDoubleClick}>
-            {activeTab.editingFile ? (
+            {activeTab?.data?.editingFile ? (
                 <SimpleMDE
                     className={styles['markdown-editor']}
                     value={newContent.value}
@@ -39,7 +37,7 @@ export const FileDisplay = ({ file }) => {
                     {fileEdited.value ? newContent.value : content.value}
                 </ReactMarkdown>
             )}
-            {activeTab.editingFile && (
+            {activeTab?.data?.editingFile && (
                 <button className={styles['save-button']} onClick={handleSave}>
                     Save
                 </button>

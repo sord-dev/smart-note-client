@@ -7,30 +7,39 @@ export const FileProvider = ({ children }) => {
     const [files, setFiles] = useState([]);
 
     const loadFiles = (files) => {
-        setFiles(prev => {
-            const newFile = prev.find(f => f.title === 'New Note');
-
-            if (newFile) { // if a new file is present, allow it to stay on update
-                return [...files, newFile]
-            } else { // else set files to updated state
-                return files
-            }
-        })
+        setFiles(files)
     }
 
-    const createFile = () => {
-        setFiles((prev) => [...prev, { id: `New Note ${files.length}`, title: 'New Note', content: '# This is a new note\n**Double Click** to edit any note.' }])
-    }
-
-    const saveFileToAPI = async (data) => {
+    const createFile = async () => {
         try {
-            const response = await axios.post('http://localhost:3001/notes', data, { withCredentials: true });
+            const response = await axios.post('http://localhost:3001/notes', { title: 'New Note', content: '# This is a new note\n**Double Click** to edit any note.', folder: 'none' }, { withCredentials: true });
+
+            setFiles((prev) => [...prev, { id: response.data._id, ...response.data }])
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
+    const saveFile = async (data) => {
+        try {
+            const response = await axios.update(`http://localhost:3001/notes/${data.id}`, data, { withCredentials: true });
 
             setFiles(prev => [...prev, response.data]);
         } catch (error) {
             console.error(error.message)
         }
 
+    }
+
+    const deleteFile = async (id) => {
+        try {
+            await axios.delete(`http://localhost:3001/notes/${id}`, { withCredentials: true });
+
+            const filteredFiles = files.filter(f => f.id !== id);
+            setFiles(filteredFiles)
+        } catch (error) {
+            console.error(error)
+        }
     }
 
     useEffect(() => {
@@ -40,7 +49,8 @@ export const FileProvider = ({ children }) => {
     const fileControls = {
         loadFiles,
         createFile,
-        saveFileToAPI
+        saveFile,
+        deleteFile
     }
 
     return (

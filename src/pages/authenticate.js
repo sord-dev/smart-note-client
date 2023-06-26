@@ -23,7 +23,7 @@ function AuthPage() {
         if (error) {
             return error.message;
         } else {
-            setTimeout(() => push('/'), 800); // Timeout because cookie needs time to set
+            setTimeout(() => push('/'), 850); // Timeout because cookie needs time to set
         }
     };
 
