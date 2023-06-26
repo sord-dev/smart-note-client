@@ -14,21 +14,24 @@ import { useSEOConfig } from '@/contexts/SEOContext'
 
 const Home = () => {
     const { activeTab } = useTabs();
-    const { fileControls } = useFiles();
+    const { files, fileControls } = useFiles();
     const router = useRouter();
-
-    const { SEOConfig } = useSEOConfig()
-
+    const { SEOConfig, configureSEO } = useSEOConfig()
     const { error, isLoading } = useFetchNotes('http://localhost:3001/notes', fileControls);
-
-    if (isLoading) {
-        // Handle loading state
-        return <div>Loading...</div>;
-    }
 
     if (error) {
         console.log('error, you\'ve been redirected: ', error)
         router.push('/authenticate')
+    }
+
+    useEffect(() => {
+        const pageTitle = activeTab.type == 'markdown' ? `${activeTab.data.title}` : `SmartNote - ${files.length} files`;
+        configureSEO({ title: pageTitle });
+    }, [activeTab, files])
+
+    if (isLoading) {
+        // Handle loading state
+        return <div>Loading...</div>;
     }
 
     // Render the notes data

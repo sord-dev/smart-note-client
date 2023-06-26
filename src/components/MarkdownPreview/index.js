@@ -45,9 +45,6 @@ export const FileDisplay = ({ file }) => {
         </div>
     );
 };
-
-
-
 export default class MarkdownPreview {
     // Markdown tab implementation
     render({ data }) {
