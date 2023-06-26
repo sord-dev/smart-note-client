@@ -4,7 +4,7 @@ import styles from './styles.module.css'
 import { useTabs } from '@/contexts/TabContext'
 import { useFiles } from '@/contexts/FileContext';
 
-import { EditNoteButton, FileList } from './subcomponents';
+import { EditNoteButton, FileList, FileSearch } from './subcomponents';
 
 export function Layout({ children }) {
     const { tabControls: { openMap, openMarkdown }, fileStateControls } = useTabs();
@@ -24,6 +24,8 @@ export function Layout({ children }) {
             <aside className={styles.sidebar}>
                 <div className={styles.sidebarItems}>
                     <FileList {...{ files, activeTab, openFile: openMarkdown, createFile: fileControls?.createFile }} />
+
+                    <FileSearch {...{ files, activeTab, openFile: openMarkdown }} />
                 </div>
 
                 <EditNoteButton activeTab={activeTab} onClick={fileStateControls?.setEditFile} />
