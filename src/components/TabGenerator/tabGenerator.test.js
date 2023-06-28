@@ -7,9 +7,11 @@ import { FileProvider } from '../../contexts/FileContext';
 describe('TabGeneratorComponent', () => {
     test('should render the activeTab type correctly', () => {
         render(
-            <TabProvider>
-                <TabGeneratorComponent tabType='markdown' />
-            </TabProvider>
+            <FileProvider>
+                <TabProvider>
+                    <TabGeneratorComponent tabType='markdown' />
+                </TabProvider>
+            </FileProvider>
         );
 
         const activeTabElement = screen.getByTestId('markdown-preview');
