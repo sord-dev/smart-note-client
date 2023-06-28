@@ -1,17 +1,22 @@
 /* AuthenticationForm.module.css */
 .form {
   max-width: 400px;
-  margin: 0 auto;
+  margin: 24px auto;
   padding: 20px;
   background-color: #fff;
   border-radius: 4px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+.form p {
+  text-align: center;
+}
+
 .title {
   font-size: 24px;
   font-weight: 600;
   margin-bottom: 20px;
+  text-align: center;
 }
 
 .fields {
@@ -48,9 +53,18 @@
   border-radius: 4px;
   cursor: pointer;
   font-weight: 600;
+  width: 100%;
   transition: background-color 0.3s ease;
+  margin: 12px 0;
 }
 
 .button:hover {
   background-color: #3182ce;
+}
+
+.error {
+  color: red;
+  text-align: center;
+  font-size: 0.8em;
+  margin-top: 12px;
 }

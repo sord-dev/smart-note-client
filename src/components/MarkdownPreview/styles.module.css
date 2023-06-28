@@ -1,0 +1,69 @@
+/* styles.module.css */
+
+.markdown-content {
+  font-family: "Inter", sans-serif;
+  line-height: 1.5;
+  color: #333333;
+  font-size: 1em;
+}
+
+.markdown-content h1 {
+  font-size: 24px;
+  margin-bottom: 16px;
+  font-size: 2em;
+}
+
+.markdown-content h2 {
+  font-size: 20px;
+  margin-bottom: 12px;
+}
+
+.markdown-content p {
+  margin-bottom: 8px;
+}
+
+.markdown-content a {
+  color: #0066cc;
+}
+
+.markdown-content ul {
+  list-style-type: disc;
+  margin-bottom: 12px;
+  margin-left: 24px;
+}
+
+.markdown-content ol {
+  list-style-type: decimal;
+  margin-bottom: 12px;
+  margin-left: 24px;
+}
+
+.markdown-content li {
+  margin-bottom: 4px;
+}
+
+.markdown-content pre {
+  background-color: #141414;
+  padding: 8px;
+  border-radius: 4px;
+  margin-bottom: 12px;
+  overflow-x: auto;
+  border-radius: 6px;
+}
+
+.markdown-content code {
+  font-family: monospace;
+  color: white;
+  padding: 2px 4px;
+  border-radius: 6px;
+}
+
+.markdown-content li code {
+  background-color: #141414;
+}
+
+.save-button {
+  position: fixed;
+  bottom: 35px;
+  right: 35px;
+}

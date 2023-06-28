@@ -36,6 +36,37 @@ img {
   height: auto;
 }
 
+.btn {
+  display: inline-block;
+  padding: 12px 24px;
+  font-size: 12px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: #ffffff;
+  background-color: #7f7f7f;
+  border: none;
+  border-radius: 0;
+  cursor: pointer;
+  transition: background-color 200ms ease;
+  border-radius: 6px;
+}
+
+.btn:hover {
+  background-color: #676767e2;
+}
+
+.btn:focus {
+  outline: none;
+  box-shadow: 0 0 4px #ffffff;
+}
+
+.btn.sm {
+  padding: 6px 12px;
+  font-size: 10px;
+}
+
 /* Add a background color and default text color */
 body {
   background-color: #fcfcfc;

@@ -8,7 +8,7 @@
 
 .layout {
   display: grid;
-  grid-template-columns: 200px 1fr;
+  grid-template-columns: 250px 1fr;
   grid-template-rows: auto 1fr auto;
   min-height: 100vh;
   background-color: #f5f5f5;
@@ -16,27 +16,142 @@
 
 .header {
   grid-column: 1 / span 2;
-  background-color: #ffffff;
-  padding: 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #393939;
+  color: white;
+  padding: 8px;
+
+  border-bottom: 1px solid #0303030c;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header h1 {
+  font-size: 1.5em;
 }
 
 .sidebar {
   grid-column: 1;
-  background-color: #f5f5f5;
+  background-color: #393939;
+
   padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: white;
+}
+
+.editNoteButton {
+  margin-left: auto;
+}
+
+.sidebarList {
+  font-size: 0.8em;
+  display: flex;
+  flex-direction: column;
+  margin-top: 12px;
+  background-color: #ffffff;
+  padding: 3px;
+  border: 1px solid rgba(123, 123, 123, 0.215);
+  border-radius: 4px;
+
+  max-height: 250px;
+  overflow: auto;
+}
+
+.sidebarItems h3 {
+  margin: 6px 0;
+}
+
+.file {
+  cursor: pointer;
+  border-radius: 4px;
+  padding: 2px 4px;
+  transition: all 300ms;
+  font-weight: 500;
+  color: black;
+}
+
+.sidebar p {
+  color: black;
+}
+
+.file.active {
+  background-color: #c5c5c5;
+}
+
+.file:hover {
+  background-color: #c5c5c5;
+}
+
+.noteControls {
+  display: flex;
+  gap: 4px;
+  justify-content: flex-end;
 }
 
 .main {
   grid-column: 2;
-  background-color: #ffffff;
+  background-color: #f0f0f0;
   padding: 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  max-height: 94vh;
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
 
-.footer {
-  grid-column: 1 / span 2;
-  background-color: #f5f5f5;
-  padding: 10px;
-  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+.file-edit-title input {
+  font-size: 1.1em;
+  word-wrap: break-word;
+  height: 20px;
+  outline: none;
+}
+
+.folderList {
+  display: flex;
+  padding: 6px 12px;
+  font-size: 0.8em;
+  gap: 1em;
+  justify-content: space-around;
+  margin-top: 12px;
+  overflow-y: auto; /* Change to "auto" to show scrollbar only when necessary */
+}
+
+/* Customize the scrollbar style */
+.folderList::-webkit-scrollbar,
+.sidebarList::-webkit-scrollbar {
+  width: 4px;
+}
+
+.folderList::-webkit-scrollbar-thumb,
+.sidebarList::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 4px;
+}
+
+.folderList::-webkit-scrollbar-thumb:hover,
+.sidebarList::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
+
+.folderList::-webkit-scrollbar-track,
+.sidebarList::-webkit-scrollbar-track {
+  background-color: #f1f1f1;
+}
+
+.folder {
+  padding: 4px 8px;
+  color: white !important;
+  border: 1px solid rgba(155, 155, 155, 0.211);
+  text-align: center;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.folder.active {
+  background-color: white;
+  color: black !important;
 }

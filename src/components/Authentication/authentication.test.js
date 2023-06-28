@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, act } from '@testing-library/react';
 import { AuthenticationForm } from '.';
 
 test('renders login form', () => {
@@ -44,12 +44,14 @@ test('submits form with correct data', () => {
     const passwordInput = screen.getByLabelText('Password');
     const submitButton = screen.getByRole('button', { name: /login/i });
 
-    // Simulate user input
-    fireEvent.change(usernameInput, { target: { value: 'testuser' } });
-    fireEvent.change(passwordInput, { target: { value: 'testpassword' } });
+    act(() => {
+        // Simulate user input
+        fireEvent.change(usernameInput, { target: { value: 'testuser' } });
+        fireEvent.change(passwordInput, { target: { value: 'testpassword' } });
 
-    // Submit the form
-    fireEvent.click(submitButton);
+        // Submit the form
+        fireEvent.click(submitButton);
+    });
 
     // Assert that form submission logic is triggered
     expect(submitForm).toHaveBeenCalledWith({
@@ -57,4 +59,3 @@ test('submits form with correct data', () => {
         password: 'testpassword',
     });
 });
-

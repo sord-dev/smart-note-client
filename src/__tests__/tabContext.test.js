@@ -1,11 +1,16 @@
 import React from 'react';
-import { renderHook, act } from '@testing-library/react-hooks';
+import { renderHook, act } from '@testing-library/react';
 import { TabProvider, useTabs } from '../contexts/TabContext';
+import { FileProvider } from '../contexts/FileContext';
 
 describe('TabContext', () => {
     test('should provide initial activeTab value', () => {
         const { result } = renderHook(() => useTabs(), {
-            wrapper: ({ children }) => <TabProvider>{children}</TabProvider>,
+            wrapper: ({ children }) => (
+                <FileProvider>
+                    <TabProvider>{children}</TabProvider>
+                </FileProvider>
+            ),
         });
 
         expect(result.current.activeTab).toEqual({ type: 'map', data: '' });
@@ -13,7 +18,11 @@ describe('TabContext', () => {
 
     test('should update activeTab when opening a Markdown file', () => {
         const { result } = renderHook(() => useTabs(), {
-            wrapper: ({ children }) => <TabProvider>{children}</TabProvider>,
+            wrapper: ({ children }) => (
+                <FileProvider>
+                    <TabProvider>{children}</TabProvider>
+                </FileProvider>
+            ),
         });
 
         act(() => {
@@ -30,7 +39,11 @@ describe('TabContext', () => {
 
     test('should update activeTab when opening the Map', () => {
         const { result } = renderHook(() => useTabs(), {
-            wrapper: ({ children }) => <TabProvider>{children}</TabProvider>,
+            wrapper: ({ children }) => (
+                <FileProvider>
+                    <TabProvider>{children}</TabProvider>
+                </FileProvider>
+            ),
         });
 
         act(() => {
@@ -44,7 +57,11 @@ describe('TabContext', () => {
 
     test('should handle error gracefully when opening a tab with missing data', () => {
         const { result } = renderHook(() => useTabs(), {
-            wrapper: ({ children }) => <TabProvider>{children}</TabProvider>,
+            wrapper: ({ children }) => (
+                <FileProvider>
+                    <TabProvider>{children}</TabProvider>
+                </FileProvider>
+            ),
         });
 
         act(() => {
@@ -53,6 +70,9 @@ describe('TabContext', () => {
             openMarkdown({ id: 1, title: 'Missing Content' });
         });
 
-        expect(result.current.activeTab).toEqual({ type: 'markdown', data: { title: 'Error', content: '# Oops, file not found or is invalid.' } });
+        expect(result.current.activeTab).toEqual({
+            type: 'markdown',
+            data: { title: 'Error', content: '# Oops, file not found or is invalid.' },
+        });
     });
 });
