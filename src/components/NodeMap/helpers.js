@@ -1,4 +1,5 @@
 const nodeClickInjectHandler = (fn) => (node) => { // on first call get the onclick handler
+    if (node.type == 'folder') return console.log('folder filter');
     fn(node) // and then on second call run that function on the node
 };
 
@@ -7,10 +8,10 @@ const renderNode = (node, ctx, globalScale) => {
     const radius = 20 / globalScale; // Adjust the radius based on scale
 
     // Draw a larger circle shape that encompasses the label
-    const circleRadius = radius + 5; // Increase the radius to expand the clickable area
+    const circleRadius = radius + 1; // Increase the radius to expand the clickable area
     ctx.beginPath();
     ctx.arc(node.x, node.y, circleRadius, 0, 2 * Math.PI);
-    ctx.fillStyle = `rgba(0, 0, 0, 0.4)`; // Make the shape semi-transparent
+    ctx.fillStyle = node.type == 'folder' ? `rgba(0, 0, 0, 1)` : `rgba(0, 0, 0, 0.4)`; // Make the shape semi-transparent
     ctx.fill();
 
     // Draw the label text below the circle
@@ -22,14 +23,5 @@ const renderNode = (node, ctx, globalScale) => {
     ctx.fillText(label, node.x, textY); // Display label below the circle
 };
 
-const DefaultGraphData = {
-    nodes: [
-        { title: 'Node 1', content: '# Test 1' },
-        { title: 'Node 2', content: '# Test 2' },
-        { title: 'Node 3', content: '# Test 3' },
-        // Add more nodes as needed
-    ],
-    links: [],
-};
 
-export { renderNode, nodeClickInjectHandler, DefaultGraphData }
+export { renderNode, nodeClickInjectHandler }

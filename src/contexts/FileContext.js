@@ -5,8 +5,11 @@ const FileContext = createContext();
 
 export const FileProvider = ({ children }) => {
     const [files, setFiles] = useState([]);
+    const [folders, setFolders] = useState([]);
 
     const loadFiles = (files) => {
+        const folders = new Set(files.map(f => f?.folder)); // create a unique set of folder names
+        setFolders(Array.from(folders).filter(f => f && f)) // set folder state, filtering for undefined and nulls
         setFiles(files)
     }
 
@@ -44,8 +47,8 @@ export const FileProvider = ({ children }) => {
     }
 
     useEffect(() => {
-        console.log('file state updated: ', files)
-    }, [files])
+        console.log('file state updated: ', { files, folders })
+    }, [files, folders])
 
     const fileControls = {
         loadFiles,
@@ -55,7 +58,7 @@ export const FileProvider = ({ children }) => {
     }
 
     return (
-        <FileContext.Provider value={{ files, fileControls }}>
+        <FileContext.Provider value={{ files, folders, fileControls }}>
             {children}
         </FileContext.Provider>
     );

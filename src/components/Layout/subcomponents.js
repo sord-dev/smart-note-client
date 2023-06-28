@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styles from './styles.module.css'
 import useFileSearch from '@/hooks/useFileSearch';
+import useFilterByFolders from '@/hooks/useFilterByFolders';
 
 export const NoteControls = ({ activeTab, deleteFile, setEditFile }) => {
     if (activeTab?.type != 'markdown') return;
@@ -13,16 +14,21 @@ export const NoteControls = ({ activeTab, deleteFile, setEditFile }) => {
     )
 }
 
-export const FileList = ({ files, activeTab, openFile, createFile, saveFile }) => {
+export const FileList = ({ files, folders, activeTab, openFile, createFile, saveFile }) => {
+    const { result, handleSelectFolder, selectedFolder } = useFilterByFolders(files)
 
     return (
         <>
             <h3>Files</h3>
             <button className='btn sm' onClick={createFile}>Create Note</button>
+            <div className={styles.folderList}>
+                {folders?.map((f, i) => (<FolderTag folder={f} key={f + i} handleSelectFolder={handleSelectFolder} selectedFolder={selectedFolder} />))}
+            </div>
+
             <div className={styles.sidebarList}>
-                {files ? files.map(f => {
+                {files ? result.map(f => {
                     const isActiveLink = activeTab.type == 'markdown' && activeTab.data.id == f.id;
-                    return <FileTag key={f.id} isActiveLink={isActiveLink} file={f} openFile={openFile} saveFile={saveFile} />
+                    return <FileTag key={f.id} isActiveFolder={isActiveLink} file={f} openFile={openFile} saveFile={saveFile} />
                 }) : 'No Files'}
             </div>
         </>
@@ -88,5 +94,11 @@ const FileTag = ({ isActiveLink, file, openFile, saveFile }) => {
                 )
             }
         </>
+    )
+}
+
+const FolderTag = ({ folder, selectedFolder, handleSelectFolder }) => {
+    return (
+        <p className={selectedFolder == folder ? `${styles.folder} ${styles.active}` : styles.folder} onClick={() => handleSelectFolder(folder)}>{folder}</p>
     )
 }

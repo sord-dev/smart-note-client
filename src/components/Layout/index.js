@@ -8,7 +8,7 @@ import { NoteControls, FileList, FileSearch } from './subcomponents';
 
 export function Layout({ children }) {
     const { tabControls: { openMap, openMarkdown }, fileStateControls } = useTabs();
-    const { files, fileControls } = useFiles();
+    const { files, folders, fileControls } = useFiles();
     const { activeTab } = useTabs();
 
     return (
@@ -23,7 +23,7 @@ export function Layout({ children }) {
 
             <aside className={styles.sidebar}>
                 <div className={styles.sidebarItems}>
-                    <FileList {...{ files, activeTab, openFile: openMarkdown, createFile: fileControls?.createFile, saveFile: fileControls?.saveFile }} />
+                    <FileList {...{ files, folders, activeTab, openFile: openMarkdown, createFile: fileControls?.createFile, saveFile: fileControls?.saveFile }} />
 
                     <FileSearch {...{ files, activeTab, openFile: openMarkdown }} />
                 </div>
