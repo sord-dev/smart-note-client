@@ -22,9 +22,10 @@ export const FileProvider = ({ children }) => {
 
     const saveFile = async (data) => {
         try {
-            const response = await axios.update(`http://localhost:3001/notes/${data.id}`, data, { withCredentials: true });
+            const response = await axios.patch(`http://localhost:3001/notes/${data.id}`, data, { withCredentials: true });
+            const filteredFiles = files.filter(f => f.id !== data.id);
 
-            setFiles(prev => [...prev, response.data]);
+            setFiles([...filteredFiles, response.data]);
         } catch (error) {
             console.error(error.message)
         }

@@ -96,3 +96,10 @@
   overflow-x: hidden;
   overflow-y: scroll;
 }
+
+.file-edit-title input {
+  font-size: 1.1em;
+  word-wrap: break-word;
+  height: 20px;
+  outline: none;
+}

@@ -13,7 +13,7 @@ export const NoteControls = ({ activeTab, deleteFile, setEditFile }) => {
     )
 }
 
-export const FileList = ({ files, activeTab, openFile, createFile }) => {
+export const FileList = ({ files, activeTab, openFile, createFile, saveFile }) => {
 
     return (
         <>
@@ -22,7 +22,7 @@ export const FileList = ({ files, activeTab, openFile, createFile }) => {
             <div className={styles.sidebarList}>
                 {files ? files.map(f => {
                     const isActiveLink = activeTab.type == 'markdown' && activeTab.data.id == f.id;
-                    return <FileTag key={f.id} isActiveLink={isActiveLink} file={f} openFile={openFile} />
+                    return <FileTag key={f.id} isActiveLink={isActiveLink} file={f} openFile={openFile} saveFile={saveFile} />
                 }) : 'No Files'}
             </div>
         </>
@@ -54,6 +54,39 @@ const NavItemList = ({ items = [], fallback = 'No Files Provided', activeTab, op
     )
 }
 
-const FileTag = ({ isActiveLink, file, openFile }) => {
-    return (<p className={isActiveLink ? `${styles.file} ${styles.active}` : styles.file} key={file.id} onClick={() => openFile(file)}>{file.title}</p>)
+const FileTag = ({ isActiveLink, file, openFile, saveFile }) => {
+    const [editTitle, setEditTitle] = useState();
+    const [title, setTitle] = useState(file.title);
+
+    const handleEdit = () => {
+        setEditTitle(prev => !prev)
+    }
+
+    const handleFormSubmit = async (e) => {
+        e.preventDefault()
+        await saveFile({ ...file, title }) // change file state and update file
+        handleEdit()
+    }
+
+
+    return (
+        <>
+            {editTitle
+                ?
+                (
+                    <form className={styles['file-edit-title']} onSubmit={handleFormSubmit}>
+                        <input type="text" onDoubleClick={handleEdit} value={title} onChange={(e) => setTitle(e.target.value)} />
+                    </form>
+                )
+                :
+                (
+                    <p
+                        onDoubleClick={handleEdit}
+                        className={isActiveLink ? `${styles.file} ${styles.active}` : styles.file}
+                        key={file.id}
+                        onClick={() => openFile(file)}>{title}</p>
+                )
+            }
+        </>
+    )
 }

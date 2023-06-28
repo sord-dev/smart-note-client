@@ -1,6 +1,6 @@
 const { useEffect, useState } = require("react");
 
-const useFileDisplay = (file, activeTab, fileStateControls) => {
+const useFileDisplay = (file, activeTab, fileStateControls, fileControls) => {
     const [content, setContent] = useState(file?.content);
     const [newContent, setNewContent] = useState(content);
     const [fileEdited, setFileEdited] = useState(false);
@@ -9,9 +9,15 @@ const useFileDisplay = (file, activeTab, fileStateControls) => {
         setContent(file?.content);
     }, [activeTab, file]);
 
-    useEffect(() => {  // check for content change and update content
+    useEffect(() => {  // check for source file content change and update content
         setNewContent(content);
     }, [content]);
+
+    useEffect(() => {  // check for user inputed content to change
+        if (content !== newContent) {
+            setFileEdited(true);
+        } else setFileEdited(false)
+    }, [newContent, content]);
 
     const handleDoubleClick = () => {
         fileStateControls.setEditFile();
@@ -22,8 +28,8 @@ const useFileDisplay = (file, activeTab, fileStateControls) => {
     };
 
     const handleSave = () => {
-        setFileEdited(true);
         fileStateControls.setEditFile();
+        fileControls.saveFile({ ...file, content: newContent });
     };
 
     return {

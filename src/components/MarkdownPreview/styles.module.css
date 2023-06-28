@@ -43,16 +43,27 @@
 }
 
 .markdown-content pre {
-  background-color: #f1f1f1;
+  background-color: #141414;
   padding: 8px;
   border-radius: 4px;
   margin-bottom: 12px;
   overflow-x: auto;
+  border-radius: 6px;
 }
 
 .markdown-content code {
-  font-family: "Courier New", monospace;
-  background-color: #f1f1f1;
+  font-family: monospace;
+  color: white;
   padding: 2px 4px;
-  border-radius: 4px;
+  border-radius: 6px;
+}
+
+.markdown-content li code {
+  background-color: #141414;
+}
+
+.save-button {
+  position: fixed;
+  bottom: 35px;
+  right: 35px;
 }
