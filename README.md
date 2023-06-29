@@ -1,4 +1,4 @@
-# Next.js Front-End Application
+# SmartNote Client-Side
 
 This is a Next.js front-end application for managing and displaying notes. It consumes a backend Express server for data storage and retrieval.
 
