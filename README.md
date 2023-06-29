@@ -2,6 +2,11 @@
 
 This is a Next.js front-end application for managing and displaying notes. It consumes a backend Express server for data storage and retrieval.
 
+![image](https://github.com/sord-dev/smart-note-client/assets/75338985/c83e7570-6fef-41b8-a79e-5b5e99e57bed)
+![image](https://github.com/sord-dev/smart-note-client/assets/75338985/4b01d244-e122-465d-a237-f55862eee3bc)
+![note display page](https://github.com/sord-dev/smart-note-client/assets/75338985/c5345080-5948-4fce-86f2-5d5af181fc47)
+![note edit page](https://github.com/sord-dev/smart-note-client/assets/75338985/da8349c8-67ce-461a-8577-2492d27c2d66)
+
 ## Requirements
 
 - Node.js and npm should be installed on your machine.
