@@ -1,6 +1,7 @@
 # SmartNote Client-Side
 
 This is a Next.js front-end application for managing and displaying notes. It consumes a backend Express server for data storage and retrieval.
+**[plans to integrate model to handle summarisation and expansion of note details]**
 
 ![image](https://github.com/sord-dev/smart-note-client/assets/75338985/8f477df9-e88d-458c-b310-1446ab0e3c4f)
 ![image](https://github.com/sord-dev/smart-note-client/assets/75338985/313e3b84-43a2-4abe-aa49-3d957ce9b3de)
