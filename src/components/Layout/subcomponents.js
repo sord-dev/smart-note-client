@@ -17,10 +17,15 @@ export const NoteControls = ({ activeTab, deleteFile, setEditFile }) => {
 export const FileList = ({ files, folders, activeTab, openFile, createFile, saveFile }) => {
     const { result, handleSelectFolder, selectedFolder } = useFilterByFolders(files)
 
+    const handleCreateFile = async () => {
+        const file = await createFile();
+        openFile(file);
+    }
+
     return (
         <>
             <h3>Files</h3>
-            <button className='btn sm' onClick={createFile}>Create Note</button>
+            <button className='btn sm' onClick={handleCreateFile}>Create Note</button>
             <div className={styles.folderList}>
                 {folders?.map((f, i) => (<FolderTag folder={f} key={f + i} handleSelectFolder={handleSelectFolder} selectedFolder={selectedFolder} />))}
             </div>

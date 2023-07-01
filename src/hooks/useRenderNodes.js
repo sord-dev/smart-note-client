@@ -6,7 +6,6 @@ const DefaultGraphData = {
         { title: 'Node 1', content: '# Test 1' },
         { title: 'Node 2', content: '# Test 2' },
         { title: 'Node 3', content: '# Test 3' },
-        // Add more nodes as needed
     ],
     links: [],
 };

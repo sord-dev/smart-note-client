@@ -29,7 +29,11 @@ const useFileDisplay = (file, activeTab, fileStateControls, fileControls) => {
 
     const handleSave = () => {
         fileStateControls.setEditFile();
-        fileControls.saveFile({ ...file, content: newContent });
+        if (file?._id) {
+            fileControls.saveFile({ ...file, id: file._id, content: newContent });
+        } else {
+            fileControls.saveFile({ ...file, content: newContent });
+        }
     };
 
     return {

@@ -1,3 +1,4 @@
+import api from '../utils/api.config.js';
 import axios from 'axios';
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
@@ -15,20 +16,28 @@ export const FileProvider = ({ children }) => {
 
     const createFile = async () => {
         try {
-            const response = await axios.post('http://localhost:3001/notes', { title: 'New Note', content: '# This is a new note\n**Double Click** to edit any note.', folder: 'none' }, { withCredentials: true });
+            const response = await api.post('/notes', { title: 'New Note', content: '# This is a new note\n**Double Click** to edit any note.', folder: '' });
 
-            setFiles((prev) => [...prev, { id: response.data._id, ...response.data }])
+
+            const file = { id: response.data._id, ...response.data };
+            console.log(file)
+            setFiles((prev) => [...prev, file])
+
+            return file;
         } catch (error) {
             console.error(error)
         }
     }
 
     const saveFile = async (data) => {
+        console.log(data)
         try {
-            const response = await axios.patch(`http://localhost:3001/notes/${data.id}`, data, { withCredentials: true });
+            const response = await api.patch(`/notes/${data.id}`, data);
             const filteredFiles = files.filter(f => f.id !== data.id);
 
-            setFiles([...filteredFiles, response.data]);
+            const file = { id: response.data._id, ...response.data };
+
+            setFiles([...filteredFiles, file]);
         } catch (error) {
             console.error(error.message)
         }
@@ -37,7 +46,7 @@ export const FileProvider = ({ children }) => {
 
     const deleteFile = async (id) => {
         try {
-            await axios.delete(`http://localhost:3001/notes/${id}`, { withCredentials: true });
+            await api.delete(`/notes/${id}`);
 
             const filteredFiles = files.filter(f => f.id !== id);
             setFiles(filteredFiles)
