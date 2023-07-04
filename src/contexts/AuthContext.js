@@ -15,6 +15,8 @@ export const AuthProvider = ({ children }) => {
 
             const userData = response.data;
             setUser(userData);
+
+            return response.data
         } catch (error) {
             console.error('Login failed:', error);
             return error.response?.data;
@@ -22,14 +24,11 @@ export const AuthProvider = ({ children }) => {
     };
 
     const register = async (credentials) => {
-        console.log(credentials.password != credentials.conf_pasword)
-        if (!credentials.username || !credentials.password) return;
+        if (!credentials.username || !credentials.password || !credentials.conf_password) return;
         if (credentials.password != credentials.conf_password) return;
 
         try {
             const response = await api.post('/auth/register', credentials);
-
-            console.log(response)
 
             const newUser = response.data;
             setUser(newUser);
