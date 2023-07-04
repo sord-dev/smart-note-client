@@ -1,10 +1,10 @@
 import React from 'react';
 import { renderHook, act } from '@testing-library/react';
 import { AuthProvider, useAuth } from '../contexts/AuthContext';
-import axios from 'axios';
+import api from '../utils/api.config.js';
 
 // Mock axios module
-jest.mock('axios');
+jest.mock('../utils/api.config.js');
 
 describe('AuthContext', () => {
     test('should login and update user data', async () => {
@@ -15,7 +15,7 @@ describe('AuthContext', () => {
         };
 
         // Mock the axios post method
-        axios.post.mockResolvedValue({ data: userData });
+        api.post.mockResolvedValue({ data: userData });
 
         // Render the hook within the AuthProvider
         const wrapper = ({ children }) => <AuthProvider>{children}</AuthProvider>;
@@ -25,7 +25,6 @@ describe('AuthContext', () => {
         await act(async () => {
             await result.current.login({ username: 'testuser', password: 'password' });
         });
-
         // Assert that the user data has been updated
         expect(result.current.user).toEqual(userData);
     });
@@ -35,7 +34,7 @@ describe('AuthContext', () => {
         const error = { error: 'Invalid credentials' };
 
         // Mock the axios post method to throw an error
-        axios.post.mockRejectedValue({ response: { data: error } });
+        api.post.mockRejectedValue({ response: { data: error } });
 
         // Render the hook within the AuthProvider
         const wrapper = ({ children }) => <AuthProvider>{children}</AuthProvider>;
@@ -50,5 +49,4 @@ describe('AuthContext', () => {
         expect(result.current.user).toBeNull();
     });
 
-    // Add similar tests for register and logout functions
 });

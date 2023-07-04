@@ -1,8 +1,8 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import axios from 'axios';
+import api from '../utils/api.config.js';
 
 const AuthContext = createContext();
-const BASE_URL = 'http://localhost:3001';
+
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
@@ -11,12 +11,12 @@ export const AuthProvider = ({ children }) => {
         if (!credentials.username || !credentials.password) return;
 
         try {
-            const response = await axios.post(BASE_URL + '/auth/login', credentials, {
-                withCredentials: true, // Enable sending cookies with the request
-            });
+            const response = await api.post('/auth/login', credentials);
 
             const userData = response.data;
             setUser(userData);
+
+            return response.data
         } catch (error) {
             console.error('Login failed:', error);
             return error.response?.data;
@@ -24,16 +24,11 @@ export const AuthProvider = ({ children }) => {
     };
 
     const register = async (credentials) => {
-        console.log(credentials.password != credentials.conf_pasword)
-        if (!credentials.username || !credentials.password) return;
+        if (!credentials.username || !credentials.password || !credentials.conf_password) return;
         if (credentials.password != credentials.conf_password) return;
 
         try {
-            const response = await axios.post(BASE_URL + '/auth/register', credentials, {
-                withCredentials: true, // Enable sending cookies with the request
-            });
-
-            console.log(response)
+            const response = await api.post('/auth/register', credentials);
 
             const newUser = response.data;
             setUser(newUser);
@@ -45,9 +40,7 @@ export const AuthProvider = ({ children }) => {
 
     const logout = async () => {
         try {
-            await axios.post(BASE_URL + '/api/logout', null, {
-                withCredentials: true, // Enable sending cookies with the request
-            });
+            await api.post('/auth/logout', null);
             setUser(null);
         } catch (error) {
             console.error('Logout failed:', error);

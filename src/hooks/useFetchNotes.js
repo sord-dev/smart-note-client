@@ -1,12 +1,10 @@
 import { useEffect } from 'react';
-import axios from 'axios';
 import useSWR from 'swr';
+import api from '../utils/api.config';
 
 const fetcher = async (url) => {
     try {
-        const response = await axios.get(url, {
-            withCredentials: true,
-        });
+        const response = await api.get(url);
 
         return response.data;
     } catch (error) {
