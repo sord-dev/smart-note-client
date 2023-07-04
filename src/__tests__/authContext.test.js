@@ -25,7 +25,6 @@ describe('AuthContext', () => {
         await act(async () => {
             await result.current.login({ username: 'testuser', password: 'password' });
         });
-
         // Assert that the user data has been updated
         expect(result.current.user).toEqual(userData);
     });
