@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - working
+      - prod
 
 jobs:
   test-lint:
