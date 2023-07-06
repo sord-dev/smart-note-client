@@ -4,10 +4,10 @@ import styles from './styles.module.css'
 import { useTabs } from '@/contexts/TabContext'
 import { useFiles } from '@/contexts/FileContext';
 
-import { NoteControls, FileList, FileSearch } from './subcomponents';
+import { FileList, FileSearch } from './subcomponents';
 
 export function Layout({ children }) {
-    const { tabControls: { openMap, openMarkdown }, fileStateControls } = useTabs();
+    const { tabControls: { openMap, openMarkdown } } = useTabs();
     const { files, folders, fileControls } = useFiles();
     const { activeTab } = useTabs();
 
@@ -28,7 +28,7 @@ export function Layout({ children }) {
                     <FileSearch {...{ files, activeTab, openFile: openMarkdown }} />
                 </div>
 
-                <NoteControls activeTab={activeTab} setEditFile={fileStateControls?.setEditFile} deleteFile={async () => await fileControls?.deleteFile(activeTab.data.id)} />
+
             </aside>
 
             <main className={styles.main}>{children}</main>

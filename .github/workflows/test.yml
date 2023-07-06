@@ -1,4 +1,4 @@
-name: Auto Test
+name: Test NextJS Site
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
       - working
 
 jobs:
-  test:
+  test-lint:
     runs-on: ubuntu-latest
 
     steps:

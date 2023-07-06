@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent, act } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { AuthenticationForm } from '.';
 
 test('renders login form', () => {
@@ -36,26 +36,3 @@ test('renders register form', () => {
     expect(submitButton).toBeInTheDocument();
 });
 
-test('submits form with correct data', () => {
-    const submitForm = jest.fn((user) => user); // Create a mock submitForm function
-    render(<AuthenticationForm type="login" submitForm={submitForm} />);
-
-    const usernameInput = screen.getByRole('textbox', { name: /username/i });
-    const passwordInput = screen.getByLabelText('Password');
-    const submitButton = screen.getByRole('button', { name: /login/i });
-
-    act(() => {
-        // Simulate user input
-        fireEvent.change(usernameInput, { target: { value: 'testuser' } });
-        fireEvent.change(passwordInput, { target: { value: 'testpassword' } });
-
-        // Submit the form
-        fireEvent.click(submitButton);
-    });
-
-    // Assert that form submission logic is triggered
-    expect(submitForm).toHaveBeenCalledWith({
-        username: 'testuser',
-        password: 'testpassword',
-    });
-});

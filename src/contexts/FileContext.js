@@ -17,9 +17,8 @@ export const FileProvider = ({ children }) => {
         try {
             const response = await api.post('/notes', { title: 'New Note', content: '# This is a new note\n**Double Click** to edit any note.', folder: '' });
 
-
             const file = { id: response.data._id, ...response.data };
-            console.log(file)
+
             setFiles((prev) => [...prev, file])
 
             return file;
@@ -29,7 +28,7 @@ export const FileProvider = ({ children }) => {
     }
 
     const saveFile = async (data) => {
-        console.log(data)
+
         try {
             const response = await api.patch(`/notes/${data.id}`, data);
             const filteredFiles = files.filter(f => f.id !== data.id);

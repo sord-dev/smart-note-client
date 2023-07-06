@@ -3,16 +3,6 @@ import styles from './styles.module.css'
 import useFileSearch from '@/hooks/useFileSearch';
 import useFilterByFolders from '@/hooks/useFilterByFolders';
 
-export const NoteControls = ({ activeTab, deleteFile, setEditFile }) => {
-    if (activeTab?.type != 'markdown') return;
-
-    return (
-        <div className={styles.noteControls}>
-            <button className='btn sm' onClick={setEditFile} >Edit Note</button>
-            <button className='btn sm' onClick={deleteFile} >Delete Note</button>
-        </div>
-    )
-}
 
 export const FileList = ({ files, folders, activeTab, openFile, createFile, saveFile }) => {
     const { result, handleSelectFolder, selectedFolder } = useFilterByFolders(files)

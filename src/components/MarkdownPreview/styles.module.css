@@ -67,3 +67,29 @@
   bottom: 35px;
   right: 35px;
 }
+
+.meta {
+  width: 340px;
+  background-color: rgba(0, 0, 0, 0.557);
+  padding: 6px 12px;
+  position: fixed;
+  right: 25px;
+  z-index: 11;
+  color: white;
+  font-size: 0.9em;
+
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.meta button {
+  background-color: white;
+  color: #141414;
+}
+
+.folder {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}

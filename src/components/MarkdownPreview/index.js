@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import dynamic from 'next/dynamic';
 import { useTabs } from '../../contexts/TabContext';
 
@@ -7,12 +7,14 @@ import useFileDisplay from '../../hooks/useFileDisplay';
 import 'easymde/dist/easymde.min.css'
 import styles from './styles.module.css';
 import { useFiles } from '../../contexts/FileContext';
-import { RenderMarkdown } from './subcomponents';
+import { FileMetaControls, RenderMarkdown } from './subcomponents';
 const SimpleMDE = dynamic(() => import("react-simplemde-editor"), { ssr: false }); // don't load NodeGraph component when we're server side 
 
 export const FileDisplay = ({ file }) => {
     const { activeTab, fileStateControls, tabControls } = useTabs();
-    const { fileControls } = useFiles()
+    const { fileControls, folders } = useFiles();
+
+    const [fileFolder, setFileFolder] = useState(file?.folder);
 
     const {
         content,
@@ -21,23 +23,36 @@ export const FileDisplay = ({ file }) => {
         handleDoubleClick,
         handleEditorChange,
         handleSave
-    } = useFileDisplay(file, activeTab, fileStateControls, fileControls);
+    } = useFileDisplay({ ...file, folder: fileFolder }, activeTab, fileStateControls, fileControls);
 
     const onSave = async () => {
         handleSave();
         tabControls.openMarkdown(file)
     }
 
+    const handleDeleteFile = async (id) => {
+        await fileControls.deleteFile(id);
+        tabControls.openMap()
+    }
+
+
     if (!file) return <h1>No file provided.</h1>;
+
+    const createdAt = new Date(file.createdAt);
 
     return (
         <div data-testid="markdown-preview" onDoubleClick={handleDoubleClick}>
+            <FileMetaControls {...{ createdAt, fileFolder, file, fileStateControls, handleDeleteFile, folders }} />
+
             {activeTab?.data?.editingFile ? (
-                <SimpleMDE
-                    className={styles['markdown-editor']}
-                    value={newContent.value}
-                    onChange={handleEditorChange}
-                />
+                <>
+                    <SimpleMDE
+                        className={styles['markdown-editor']}
+                        value={newContent.value}
+                        onChange={handleEditorChange}
+                    />
+
+                </>
             ) : (
                 <RenderMarkdown {...{ content, newContent, fileEdited }} />
             )}
@@ -52,7 +67,7 @@ export const FileDisplay = ({ file }) => {
 export default class MarkdownPreview {
     // Markdown tab implementation
     render({ data }) {
-        const file = { content: data.content, id: data.id, title: data.title, folder: data?.folder }
+        const file = { content: data.content, id: data.id, title: data.title, folder: data.folder || 'none', createdAt: data.createdAt }
         return <FileDisplay file={file} />;
     }
 }

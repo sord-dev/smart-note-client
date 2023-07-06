@@ -1,3 +1,4 @@
+import { formatFile } from '../utils';
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
 const TabContext = createContext();
@@ -12,10 +13,10 @@ export const TabProvider = ({ children }) => {
     }
 
     const openMarkdown = (file) => {
-        if (!file.content || !file.title) return openMarkdown({ title: 'Error', content: '# Oops, file not found or is invalid.' });
+        if (!file?.content || !file?.title) return openMarkdown({ title: 'Error', content: '# Oops, file not found or is invalid.' });
         if (activeTab.data == file?.content) return;
 
-        const process = { type: 'markdown', data: { content: file.content, title: file.title, id: file.id, createdAt: file.createdAt, updatedAt: file.updatedAt } }
+        const process = { type: 'markdown', data: formatFile(file) }
         setActiveTab(process)
         addProcess(process)
     }
