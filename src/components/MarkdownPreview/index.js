@@ -67,7 +67,7 @@ export const FileDisplay = ({ file }) => {
 export default class MarkdownPreview {
     // Markdown tab implementation
     render({ data }) {
-        const file = { content: data.content, id: data.id, title: data.title, folder: data.folder || 'none', createdAt: data.createdAt }
+        const file = { content: data.content, id: data.id, title: data.title, folder: data?.folder, createdAt: data.createdAt }
         return <FileDisplay file={file} />;
     }
 }
