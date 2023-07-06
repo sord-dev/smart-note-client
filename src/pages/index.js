@@ -17,7 +17,7 @@ const Home = () => {
     const { files, fileControls } = useFiles();
     const router = useRouter();
     const { SEOConfig, configureSEO } = useSEOConfig()
-    const { error, isLoading } = useFetchNotes('http://localhost:3001/notes', fileControls);
+    const { error, isLoading } = useFetchNotes('https://smart-note.onrender.com', fileControls);
 
     if (error) {
         console.log('error, you\'ve been redirected: ', error)

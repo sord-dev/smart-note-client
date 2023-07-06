@@ -24,7 +24,7 @@ function AuthPage() {
         }
 
         if (error) {
-            return error.message;
+            return error?.message;
         } else {
             setTimeout(() => push('/'), 850); // Timeout because cookie needs time to set
         }
