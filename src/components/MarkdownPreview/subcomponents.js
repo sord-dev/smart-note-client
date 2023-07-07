@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import ReactMarkdown from 'react-markdown';
 import styles from './styles.module.css'
 
@@ -11,12 +11,17 @@ export const RenderMarkdown = ({ fileEdited, content, newContent }) => {
     )
 }
 
-export const FileMetaControls = ({ file, createdAt, fileStateControls, handleDeleteFile, fileFolder, folders = [] }) => {
+export const FileMetaControls = ({ file, createdAt, fileStateControls, handleDeleteFile, handleFolderChange, folders = [] }) => {
     const [hidden, setHidden] = useState(false);
+    const [selectedFolder, setSelectedFolder] = useState(file?.folder || 'none')
 
     const handleHideMeta = () => {
         setHidden(prev => !prev);
     }
+
+    useEffect(() => {
+        setSelectedFolder(file?.folder || 'none')
+    }, [file])
 
     return (
         <div>
@@ -33,7 +38,7 @@ export const FileMetaControls = ({ file, createdAt, fileStateControls, handleDel
 
                 <div className={styles.folder}>
                     <h4>Folder: </h4>
-                    <select defaultValue={fileFolder || 'none'} onChange={(e) => setFileFolder(e.target.value)}>
+                    <select defaultValue={selectedFolder} onChange={(e) => handleFolderChange(e.target.value)}>
                         <option value="none">None</option>
                         {folders?.map((folder, i) => (<option value={folder} key={`${folder}-${i}`}>{folder}</option>))}
                     </select>

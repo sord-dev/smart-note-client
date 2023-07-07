@@ -2,11 +2,15 @@ const { useEffect, useState } = require("react");
 
 const useFileDisplay = (file, activeTab, fileStateControls, fileControls) => {
     const [content, setContent] = useState(file?.content);
+    const [fileFolder, setFileFolder] = useState(file?.folder);
     const [newContent, setNewContent] = useState(content);
     const [fileEdited, setFileEdited] = useState(false);
 
     useEffect(() => { // check for file change and update content
         setContent(file?.content);
+        setFileFolder(file?.folder);
+
+        console.log(fileFolder)
     }, [activeTab, file]);
 
     useEffect(() => {  // check for source file content change and update content
@@ -14,10 +18,10 @@ const useFileDisplay = (file, activeTab, fileStateControls, fileControls) => {
     }, [content]);
 
     useEffect(() => {  // check for user inputed content to change
-        if (content !== newContent) {
+        if (content !== newContent || fileFolder !== file?.folder) {
             setFileEdited(true);
-        } else setFileEdited(false)
-    }, [newContent, content]);
+        }
+    }, [newContent, content, fileFolder]);
 
     const handleDoubleClick = () => {
         fileStateControls.setEditFile();
@@ -27,12 +31,16 @@ const useFileDisplay = (file, activeTab, fileStateControls, fileControls) => {
         setNewContent(value);
     };
 
+    const handleFolderChange = (folder) => {
+        setFileFolder(folder)
+    }
+
     const handleSave = () => {
         fileStateControls.setEditFile();
         if (file?._id) {
-            fileControls.saveFile({ ...file, id: file._id, content: newContent });
+            fileControls.saveFile({ ...file, id: file._id, content: newContent, folder: fileFolder });
         } else {
-            fileControls.saveFile({ ...file, content: newContent });
+            fileControls.saveFile({ ...file, content: newContent, folder: fileFolder });
         }
     };
 
@@ -49,8 +57,12 @@ const useFileDisplay = (file, activeTab, fileStateControls, fileControls) => {
             value: fileEdited,
             setFileEdited
         },
+        fileFolder: {
+            value: fileFolder
+        },
         handleDoubleClick,
         handleEditorChange,
+        handleFolderChange,
         handleSave
     };
 };

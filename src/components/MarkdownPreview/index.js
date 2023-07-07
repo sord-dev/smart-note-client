@@ -14,7 +14,6 @@ export const FileDisplay = ({ file }) => {
     const { activeTab, fileStateControls, tabControls } = useTabs();
     const { fileControls, folders } = useFiles();
 
-    const [fileFolder, setFileFolder] = useState(file?.folder);
 
     const {
         content,
@@ -22,8 +21,9 @@ export const FileDisplay = ({ file }) => {
         fileEdited,
         handleDoubleClick,
         handleEditorChange,
+        handleFolderChange,
         handleSave
-    } = useFileDisplay({ ...file, folder: fileFolder }, activeTab, fileStateControls, fileControls);
+    } = useFileDisplay({ ...file }, activeTab, fileStateControls, fileControls);
 
     const onSave = async () => {
         handleSave();
@@ -42,7 +42,7 @@ export const FileDisplay = ({ file }) => {
 
     return (
         <div data-testid="markdown-preview" onDoubleClick={handleDoubleClick}>
-            <FileMetaControls {...{ createdAt, fileFolder, file, fileStateControls, handleDeleteFile, folders }} />
+            <FileMetaControls {...{ createdAt, file, fileStateControls, handleDeleteFile, folders, handleFolderChange }} />
 
             {activeTab?.data?.editingFile ? (
                 <>
