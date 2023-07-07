@@ -23,9 +23,9 @@ export const FileMetaControls = ({ file, createdAt, fileStateControls, handleDel
             {hidden ? <button style={{ float: 'right', marginBottom: '12px', position: 'fixed', right: '25px' }} className={'btn sm'} onClick={handleHideMeta}>Show meta</button> : null}
             <div className={hidden ? `${styles.meta} ${styles.hidden}` : styles.meta}>
 
-                <div style={{ display: 'flex' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <h4>{file.title}</h4>
-                    <button style={{ float: 'right', marginBottom: '12px' }} className={'btn sm'} onClick={handleHideMeta}>X</button>
+                    <button className={'btn sm'} onClick={handleHideMeta}>X</button>
                 </div>
 
 
