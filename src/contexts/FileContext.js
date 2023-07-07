@@ -35,6 +35,8 @@ export const FileProvider = ({ children }) => {
 
             const file = { id: response.data._id, ...response.data };
 
+            console.log(data)
+
             setFiles([...filteredFiles, file]);
         } catch (error) {
             console.error(error.message)

@@ -13,15 +13,11 @@ export const RenderMarkdown = ({ fileEdited, content, newContent }) => {
 
 export const FileMetaControls = ({ file, createdAt, fileStateControls, handleDeleteFile, handleFolderChange, folders = [] }) => {
     const [hidden, setHidden] = useState(false);
-    const [selectedFolder, setSelectedFolder] = useState(file?.folder || 'none')
 
     const handleHideMeta = () => {
         setHidden(prev => !prev);
     }
 
-    useEffect(() => {
-        setSelectedFolder(file?.folder || 'none')
-    }, [file])
 
     return (
         <div>
@@ -38,7 +34,7 @@ export const FileMetaControls = ({ file, createdAt, fileStateControls, handleDel
 
                 <div className={styles.folder}>
                     <h4>Folder: </h4>
-                    <select defaultValue={selectedFolder} onChange={(e) => handleFolderChange(e.target.value)}>
+                    <select defaultValue={file?.folder || 'none'} onChange={(e) => handleFolderChange(e.target.value)}>
                         <option value="none">None</option>
                         {folders?.map((folder, i) => (<option value={folder} key={`${folder}-${i}`}>{folder}</option>))}
                     </select>
