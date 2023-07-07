@@ -97,3 +97,7 @@
   gap: 4px;
   align-items: center;
 }
+
+.see-through {
+  opacity: 0.3 !important;
+}

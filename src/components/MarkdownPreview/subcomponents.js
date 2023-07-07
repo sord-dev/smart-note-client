@@ -25,7 +25,7 @@ export const FileMetaControls = ({ file, createdAt, fileStateControls, handleDel
 
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <h4>{file.title}</h4>
-                    <button className={'btn sm'} onClick={handleHideMeta}>X</button>
+                    <button className={`${styles['see-through']} btn sm`} onClick={handleHideMeta}>X</button>
                 </div>
 
 
