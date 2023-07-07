@@ -99,5 +99,10 @@
 }
 
 .see-through {
-  opacity: 0.3 !important;
+  opacity: 0.5;
+  transition: all 100ms ease;
+}
+
+.see-through:hover {
+  opacity: 7;
 }
