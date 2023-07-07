@@ -11,13 +11,15 @@ import Head from 'next/head'
 
 import useFetchNotes from '@/hooks/useFetchNotes'
 import { useSEOConfig } from '@/contexts/SEOContext'
+import { NotesEndpoint } from '@/utils'
+
 
 const Home = () => {
     const { activeTab } = useTabs();
     const { files, fileControls } = useFiles();
     const router = useRouter();
     const { SEOConfig, configureSEO } = useSEOConfig()
-    const { error, isLoading } = useFetchNotes('https://smart-note.onrender.com/notes', fileControls);
+    const { error, isLoading } = useFetchNotes(NotesEndpoint, fileControls);
 
     if (error) {
         console.log('error, you\'ve been redirected: ', error)

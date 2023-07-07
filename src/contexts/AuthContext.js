@@ -13,30 +13,31 @@ export const AuthProvider = ({ children }) => {
         try {
             const response = await api.post('/auth/login', credentials);
 
-            const userData = response.data;
+            const userData = response.data.user; // Update this line to extract the user data
             setUser(userData);
 
-            return response.data
+            return response.data;
         } catch (error) {
             console.error('Login failed:', error);
-            return error.response?.data;
+            throw new Error(error.response?.data || error?.message);
         }
     };
 
     const register = async (credentials) => {
         if (!credentials.username || !credentials.password || !credentials.conf_password) return;
-        if (credentials.password != credentials.conf_password) return;
+        if (credentials.password !== credentials.conf_password) return;
 
         try {
             const response = await api.post('/auth/register', credentials);
 
-            const newUser = response.data;
+            const newUser = response.data.user; // Update this line to extract the user data
             setUser(newUser);
         } catch (error) {
             console.error('Registration failed:', error);
-            return error.response?.data;
+            throw new Error(error.response?.data || error?.message);
         }
     };
+
 
     const logout = async () => {
         try {

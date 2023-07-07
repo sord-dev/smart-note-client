@@ -18,17 +18,27 @@ function AuthPage() {
         let error = false;
 
         if (type === 'register') {
-            error = await register(credentials);
+            try {
+                await register(credentials);
+            } catch (error) {
+                error = error;
+            }
         } else {
-            error = await login(credentials);
+            try {
+                await login(credentials);
+            } catch (error) {
+                error = error;
+            }
         }
 
         if (error) {
             return error?.message;
         } else {
-            setTimeout(() => push('/'), 850); // Timeout because cookie needs time to set
+            // Remove the setTimeout and use the useRouter().push() directly
+            push('/'); // Redirect to the main page
         }
     };
+
 
     useEffect(() => {
         const capitalisedFormType = type[0].toUpperCase() + type.slice(1, type.length);

@@ -5,10 +5,9 @@ import api from '../utils/api.config';
 const fetcher = async (url) => {
     try {
         const response = await api.get(url);
-
-        return response.data;
+        return response?.data;
     } catch (error) {
-        throw error.response.data;
+        throw error.response?.data;
     }
 };
 
