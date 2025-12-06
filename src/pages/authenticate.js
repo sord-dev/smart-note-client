@@ -33,7 +33,7 @@ function AuthPage() {
     useEffect(() => {
         const capitalisedFormType = type[0].toUpperCase() + type.slice(1, type.length);
         configureSEO({ title: `SmartNote - ${capitalisedFormType}` });
-    }, [type])
+    }, [type, configureSEO])
 
     return (
         <>

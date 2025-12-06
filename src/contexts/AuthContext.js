@@ -1,62 +1,126 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
-import api from '../utils/api.config.js';
+import React, { createContext, useContext, useEffect, useState, useCallback, useMemo } from 'react'
+import api from '../utils/api.config.js'
 
-const AuthContext = createContext();
-
+const AuthContext = createContext(null)
 
 export const AuthProvider = ({ children }) => {
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState(null)
+    const [isLoading, setIsLoading] = useState(false)
+    const [error, setError] = useState(null)
 
-    const login = async (credentials) => {
-        if (!credentials.username || !credentials.password) return;
+    const clearError = useCallback(() => setError(null), [])
+
+    const login = useCallback(async (credentials) => {
+        if (!credentials?.username || !credentials?.password) {
+            const error = 'Username and password are required'
+            setError(error)
+            return error
+        }
+
+        setIsLoading(true)
+        setError(null)
+        
+        try {
+            const response = await api.post('/auth/login', credentials)
+            const userData = response.data
+            setUser(userData)
+            return null // Success
+        } catch (error) {
+            const errorMessage = error.response?.data?.message || 'Login failed. Please try again.'
+            console.error('Login failed:', error)
+            setError(errorMessage)
+            return errorMessage
+        } finally {
+            setIsLoading(false)
+        }
+    }, [])
+
+    const register = useCallback(async (credentials) => {
+        if (!credentials?.username || !credentials?.password || !credentials?.conf_password) {
+            const error = 'All fields are required'
+            setError(error)
+            return error
+        }
+        
+        if (credentials.password !== credentials.conf_password) {
+            const error = 'Passwords do not match'
+            setError(error)
+            return error
+        }
+
+        if (credentials.password.length < 8) {
+            const error = 'Password must be at least 8 characters long'
+            setError(error)
+            return error
+        }
+
+        setIsLoading(true)
+        setError(null)
 
         try {
-            const response = await api.post('/auth/login', credentials);
-
-            const userData = response.data;
-            setUser(userData);
-
-            return response.data
+            const response = await api.post('/auth/register', credentials)
+            const newUser = response.data
+            setUser(newUser)
+            return null // Success
         } catch (error) {
-            console.error('Login failed:', error);
-            return error.response?.data;
+            const errorMessage = error.response?.data?.message || 'Registration failed. Please try again.'
+            console.error('Registration failed:', error)
+            setError(errorMessage)
+            return errorMessage
+        } finally {
+            setIsLoading(false)
         }
-    };
+    }, [])
 
-    const register = async (credentials) => {
-        if (!credentials.username || !credentials.password || !credentials.conf_password) return;
-        if (credentials.password != credentials.conf_password) return;
 
+    const logout = useCallback(async () => {
+        setIsLoading(true)
+        setError(null)
+        
         try {
-            const response = await api.post('/auth/register', credentials);
-
-            const newUser = response.data;
-            setUser(newUser);
+            await api.post('/auth/logout', null)
+            setUser(null)
         } catch (error) {
-            console.error('Registration failed:', error);
-            return error.response?.data;
+            console.error('Logout failed:', error)
+            const errorMessage = 'Logout failed. Please try again.'
+            setError(errorMessage)
+            return errorMessage
+        } finally {
+            setIsLoading(false)
         }
-    };
+    }, [])
 
-    const logout = async () => {
-        try {
-            await api.post('/auth/logout', null);
-            setUser(null);
-        } catch (error) {
-            console.error('Logout failed:', error);
-            return error.response.data;
-        }
-    };
+    // Memoize the context value to prevent unnecessary re-renders
+    const contextValue = useMemo(() => ({
+        user,
+        isLoading,
+        error,
+        login,
+        register,
+        logout,
+        clearError,
+        isAuthenticated: !!user
+    }), [user, isLoading, error, login, register, logout, clearError])
 
     useEffect(() => {
-        console.log('current user:', user);
-    }, [user]);
+        if (user) {
+            console.log('User authenticated:', user.username || 'Unknown user')
+        } else {
+            console.log('User logged out')
+        }
+    }, [user])
 
     return (
-        <AuthContext.Provider value={{ user, login, register, logout }}>
+        <AuthContext.Provider value={contextValue}>
             {children}
         </AuthContext.Provider>
-    );
-};
+    )
+}
 
-export const useAuth = () => useContext(AuthContext);
+export const useAuth = () => {
+    const context = useContext(AuthContext)
+    if (!context) {
+        throw new Error('useAuth must be used within an AuthProvider')
+    }
+    return context
+}
